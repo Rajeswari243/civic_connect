@@ -1,7 +1,7 @@
 #Hackathon Prototype
 ##Live Prototype
 [Open Prototype]
-(civicconnection.netlify.com)
+(civicconnection.netlify.app)
 
 ##Description
 This project is a prototype developed for the hackathon problem statement.
