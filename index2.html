@@ -1,0 +1,1032 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CivicResolve AI</title>
+
+    <link rel="stylesheet" href="style2.css">
+</head>
+
+<body>
+
+<header class="header">
+
+    <div class="brand">
+        <div class="logo">CR</div>
+
+        <div>
+            <h1>CivicResolve AI</h1>
+            <p>Report • Prioritize • Resolve</p>
+        </div>
+    </div>
+
+    <nav id="navbar" class="hidden">
+
+        <button onclick="showPage('home')">
+            Home
+        </button>
+
+        <button onclick="showPage('citizen')"
+                id="citizenNav">
+            Citizen
+        </button>
+
+        <button onclick="showPage('authority')"
+                id="authorityNav"
+                class="hidden">
+            Authority
+        </button>
+
+        <button onclick="showPage('analytics')"
+                id="analyticsNav"
+                class="hidden">
+            Analytics
+        </button>
+
+        <button onclick="logout()" class="logout-btn">
+            Logout
+        </button>
+
+    </nav>
+
+</header>
+
+
+<main>
+
+<!-- =====================================================
+     LOGIN PAGE
+===================================================== -->
+
+<section id="loginPage" class="page active">
+
+    <div class="login-card">
+
+        <span class="badge">
+            CIVIC ISSUE MANAGEMENT
+        </span>
+
+        <h2>Welcome to CivicResolve AI</h2>
+
+        <p class="muted">
+            Select your role and login.
+        </p>
+
+
+        <div class="login-tabs">
+
+            <button id="citizenTab"
+                    class="tab active"
+                    onclick="selectLoginRole('CITIZEN')">
+                Citizen
+            </button>
+
+            <button id="authorityTab"
+                    class="tab"
+                    onclick="selectLoginRole('AUTHORITY')">
+                Authority
+            </button>
+
+        </div>
+
+
+        <form onsubmit="login(event)">
+
+            <label>
+                Email
+
+                <input
+                    type="email"
+                    id="loginEmail"
+                    required
+                    placeholder="Enter email">
+            </label>
+
+
+            <label>
+                Password
+
+                <input
+                    type="password"
+                    id="loginPassword"
+                    required
+                    placeholder="Enter password">
+            </label>
+
+
+            <button class="primary full">
+                Login
+            </button>
+
+        </form>
+
+
+        <div id="demoCredentials"
+             class="demo-box">
+        </div>
+
+
+        <p id="loginMessage"
+           class="error-message">
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     HOME PAGE
+===================================================== -->
+
+<section id="homePage" class="page">
+
+    <div class="hero">
+
+        <div>
+
+            <span class="badge">
+                AI-ASSISTED CIVIC MANAGEMENT
+            </span>
+
+            <h2>
+                Turn civic complaints into
+                accountable action.
+            </h2>
+
+            <p>
+                Citizens report civic issues while authorized
+                municipal officers verify, assign, track and
+                resolve them.
+            </p>
+
+
+            <div class="hero-buttons">
+
+                <button class="primary"
+                        onclick="showPage('report')">
+                    Report an Issue
+                </button>
+
+                <button class="secondary"
+                        onclick="showPage('citizen')">
+                    Track My Issues
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <div class="hero-stats">
+
+            <div>
+                <strong id="homeOpen">
+                    0
+                </strong>
+
+                <span>
+                    Open Issues
+                </span>
+            </div>
+
+
+            <div>
+                <strong id="homeResolved">
+                    0
+                </strong>
+
+                <span>
+                    Resolved
+                </span>
+            </div>
+
+
+            <div>
+                <strong id="homeProgress">
+                    0%
+                </strong>
+
+                <span>
+                    Avg Progress
+                </span>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="feature-grid">
+
+        <div class="feature-card">
+
+            <div class="feature-icon">
+                📍
+            </div>
+
+            <h3>
+                Ward-Based Assignment
+            </h3>
+
+            <p>
+                Issues are connected to wards and matched
+                with the appropriate department and officer.
+            </p>
+
+        </div>
+
+
+        <div class="feature-card">
+
+            <div class="feature-icon">
+                🤖
+            </div>
+
+            <h3>
+                AI Priority
+            </h3>
+
+            <p>
+                Severity, affected people and safety risk
+                generate an explainable priority score.
+            </p>
+
+        </div>
+
+
+        <div class="feature-card">
+
+            <div class="feature-icon">
+                🔐
+            </div>
+
+            <h3>
+                Authority Control
+            </h3>
+
+            <p>
+                Verification, assignment, progress and
+                resolution are authority-only actions.
+            </p>
+
+        </div>
+
+
+        <div class="feature-card">
+
+            <div class="feature-icon">
+                📈
+            </div>
+
+            <h3>
+                Transparent Tracking
+            </h3>
+
+            <p>
+                Citizens can see status, officer, progress,
+                expected date and official updates.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     CITIZEN DASHBOARD
+===================================================== -->
+
+<section id="citizenPage" class="page">
+
+    <div class="page-heading">
+
+        <div>
+
+            <span class="badge">
+                CITIZEN PORTAL
+            </span>
+
+            <h2>
+                Citizen Dashboard
+            </h2>
+
+            <p class="muted">
+                Report problems and track official progress.
+            </p>
+
+        </div>
+
+
+        <button class="primary"
+                onclick="showPage('report')">
+            + Report Issue
+        </button>
+
+    </div>
+
+
+    <div id="citizenStats"
+         class="stats-grid">
+    </div>
+
+
+    <div class="toolbar">
+
+        <input
+            id="citizenSearch"
+            oninput="renderCitizen()"
+            placeholder="Search your issues...">
+
+
+        <select
+            id="citizenStatusFilter"
+            onchange="renderCitizen()">
+
+            <option value="ALL">
+                All Statuses
+            </option>
+
+            <option value="SUBMITTED">
+                Submitted
+            </option>
+
+            <option value="UNDER_VERIFICATION">
+                Under Verification
+            </option>
+
+            <option value="VERIFIED">
+                Verified
+            </option>
+
+            <option value="ASSIGNED">
+                Assigned
+            </option>
+
+            <option value="WORK_SCHEDULED">
+                Work Scheduled
+            </option>
+
+            <option value="IN_PROGRESS">
+                In Progress
+            </option>
+
+            <option value="ON_HOLD">
+                On Hold
+            </option>
+
+            <option value="RESOLVED">
+                Resolved
+            </option>
+
+            <option value="CITIZEN_CONFIRMED">
+                Citizen Confirmed
+            </option>
+
+            <option value="REJECTED">
+                Rejected
+            </option>
+
+            <option value="REOPEN_REQUESTED">
+                Reopen Requested
+            </option>
+
+            <option value="REOPENED">
+                Reopened
+            </option>
+
+        </select>
+
+    </div>
+
+
+    <div id="citizenIssues"
+         class="issue-grid">
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     REPORT ISSUE
+===================================================== -->
+
+<section id="reportPage" class="page">
+
+    <div class="page-heading">
+
+        <div>
+
+            <span class="badge">
+                CITIZEN ACTION
+            </span>
+
+            <h2>
+                Report Civic Issue
+            </h2>
+
+        </div>
+
+
+        <button class="secondary"
+                onclick="showPage('citizen')">
+            ← Back
+        </button>
+
+    </div>
+
+
+    <form id="reportForm"
+          class="form-card"
+          onsubmit="submitIssue(event)">
+
+        <div class="form-grid">
+
+            <label>
+                Issue Title *
+
+                <input
+                    id="issueTitle"
+                    required
+                    placeholder="Example: Large pothole near school">
+            </label>
+
+
+            <label>
+                Category *
+
+                <select id="issueCategory"
+                        required>
+
+                    <option value="">
+                        Select Category
+                    </option>
+
+                    <option>
+                        Road
+                    </option>
+
+                    <option>
+                        Streetlight
+                    </option>
+
+                    <option>
+                        Garbage
+                    </option>
+
+                    <option>
+                        Water
+                    </option>
+
+                    <option>
+                        Drainage
+                    </option>
+
+                    <option>
+                        Traffic Signal
+                    </option>
+
+                    <option>
+                        Public Safety
+                    </option>
+
+                    <option>
+                        Other
+                    </option>
+
+                </select>
+
+            </label>
+
+
+            <label>
+                Ward *
+
+                <select id="issueWard"
+                        required>
+
+                    <option value="">
+                        Select Ward
+                    </option>
+
+                    <option>Ward 1</option>
+                    <option>Ward 2</option>
+                    <option>Ward 3</option>
+                    <option>Ward 4</option>
+                    <option>Ward 5</option>
+
+                </select>
+
+            </label>
+
+
+            <label>
+                Location *
+
+                <input
+                    id="issueLocation"
+                    required
+                    placeholder="Street / landmark / area">
+            </label>
+
+
+            <label>
+                Severity *
+
+                <select id="issueSeverity">
+
+                    <option>
+                        Low
+                    </option>
+
+                    <option selected>
+                        Medium
+                    </option>
+
+                    <option>
+                        High
+                    </option>
+
+                    <option>
+                        Critical
+                    </option>
+
+                </select>
+
+            </label>
+
+
+            <label>
+                Affected People
+
+                <input
+                    id="affectedPeople"
+                    type="number"
+                    min="1"
+                    value="10">
+            </label>
+
+
+            <label>
+                Safety Risk
+
+                <select id="safetyRisk">
+
+                    <option value="0">
+                        None
+                    </option>
+
+                    <option value="1">
+                        Low
+                    </option>
+
+                    <option value="2">
+                        Moderate
+                    </option>
+
+                    <option value="3">
+                        High
+                    </option>
+
+                    <option value="4">
+                        Critical
+                    </option>
+
+                </select>
+
+            </label>
+
+
+            <label>
+                Photo
+
+                <input
+                    id="issuePhoto"
+                    type="file"
+                    accept="image/*">
+            </label>
+
+        </div>
+
+
+        <label>
+            Description *
+
+            <textarea
+                id="issueDescription"
+                rows="5"
+                required
+                placeholder="Describe the civic problem...">
+            </textarea>
+
+        </label>
+
+
+        <div class="info-box">
+
+            <strong>
+                Important:
+            </strong>
+
+            <p>
+                Your report will first be submitted for
+                authority verification. You cannot verify,
+                assign or change the status yourself.
+            </p>
+
+        </div>
+
+
+        <button class="primary"
+                type="submit">
+
+            Submit Report
+
+        </button>
+
+    </form>
+
+</section>
+
+
+<!-- =====================================================
+     AUTHORITY DASHBOARD
+===================================================== -->
+
+<section id="authorityPage" class="page">
+
+    <div class="page-heading">
+
+        <div>
+
+            <span class="badge authority-badge">
+                AUTHORITY ONLY
+            </span>
+
+            <h2>
+                Authority Dashboard
+            </h2>
+
+            <p class="muted">
+                Official municipal issue management.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="authority-warning">
+
+        🔐 <strong>Restricted Authority Area</strong>
+
+        <br>
+
+        Only authorized authority users can verify,
+        assign, update or resolve civic issues.
+
+    </div>
+
+
+    <div id="authorityStats"
+         class="stats-grid">
+    </div>
+
+
+    <div class="filter-tabs">
+
+        <button class="filter-tab active"
+                onclick="setAuthorityFilter('ALL',this)">
+            All
+        </button>
+
+        <button class="filter-tab"
+                onclick="setAuthorityFilter('PENDING',this)">
+            Pending Verification
+        </button>
+
+        <button class="filter-tab"
+                onclick="setAuthorityFilter('UNASSIGNED',this)">
+            Unassigned
+        </button>
+
+        <button class="filter-tab"
+                onclick="setAuthorityFilter('WORK',this)">
+            Work
+        </button>
+
+        <button class="filter-tab"
+                onclick="setAuthorityFilter('OVERDUE',this)">
+            Overdue
+        </button>
+
+        <button class="filter-tab"
+                onclick="setAuthorityFilter('REOPEN',this)">
+            Reopen Requests
+        </button>
+
+    </div>
+
+
+    <div class="toolbar">
+
+        <input
+            id="authoritySearch"
+            oninput="renderAuthority()"
+            placeholder="Search issues...">
+
+
+        <select
+            id="authorityWardFilter"
+            onchange="renderAuthority()">
+
+            <option value="ALL">
+                All Wards
+            </option>
+
+            <option>Ward 1</option>
+            <option>Ward 2</option>
+            <option>Ward 3</option>
+            <option>Ward 4</option>
+            <option>Ward 5</option>
+
+        </select>
+
+    </div>
+
+
+    <div id="authorityIssues"
+         class="issue-grid">
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     ANALYTICS
+===================================================== -->
+
+<section id="analyticsPage"
+         class="page">
+
+    <div class="page-heading">
+
+        <div>
+
+            <span class="badge authority-badge">
+                AUTHORITY ONLY
+            </span>
+
+            <h2>
+                Analytics
+            </h2>
+
+        </div>
+
+    </div>
+
+
+    <div id="analyticsContent"
+         class="analytics-grid">
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     ISSUE DETAILS
+===================================================== -->
+
+<section id="detailsPage"
+         class="page">
+
+    <div id="detailsContent">
+    </div>
+
+</section>
+
+</main>
+
+
+<!-- =====================================================
+     AUTHORITY MANAGEMENT MODAL
+===================================================== -->
+
+<div id="manageModal"
+     class="modal hidden">
+
+    <div class="modal-content">
+
+        <div class="modal-header">
+
+            <h2>
+                Authority Issue Management
+            </h2>
+
+            <button onclick="closeManage()"
+                    class="close-btn">
+                ✕
+            </button>
+
+        </div>
+
+
+        <div id="manageSummary"
+             class="info-box">
+        </div>
+
+
+        <form onsubmit="saveAuthorityUpdate(event)">
+
+            <input
+                type="hidden"
+                id="manageIssueId">
+
+
+            <div class="form-grid">
+
+                <label>
+                    Verification
+
+                    <select id="manageVerification">
+
+                        <option value="UNDER_VERIFICATION">
+                            Under Verification
+                        </option>
+
+                        <option value="VERIFIED">
+                            Verified
+                        </option>
+
+                        <option value="REJECTED">
+                            Rejected
+                        </option>
+
+                    </select>
+
+                </label>
+
+
+                <label>
+                    Official Status
+
+                    <select id="manageStatus">
+
+                        <option>
+                            SUBMITTED
+                        </option>
+
+                        <option>
+                            UNDER_VERIFICATION
+                        </option>
+
+                        <option>
+                            VERIFIED
+                        </option>
+
+                        <option>
+                            ASSIGNED
+                        </option>
+
+                        <option>
+                            WORK_SCHEDULED
+                        </option>
+
+                        <option>
+                            IN_PROGRESS
+                        </option>
+
+                        <option>
+                            ON_HOLD
+                        </option>
+
+                        <option>
+                            RESOLVED
+                        </option>
+
+                        <option>
+                            REOPENED
+                        </option>
+
+                    </select>
+
+                </label>
+
+
+                <label>
+                    Department
+
+                    <select id="manageDepartment">
+                    </select>
+
+                </label>
+
+
+                <label>
+                    Responsible Officer
+
+                    <select id="manageOfficer">
+                    </select>
+
+                </label>
+
+
+                <label>
+                    Progress %
+
+                    <input
+                        id="manageProgress"
+                        type="number"
+                        min="0"
+                        max="100">
+                </label>
+
+
+                <label>
+                    Expected Start
+
+                    <input
+                        id="manageStart"
+                        type="date">
+                </label>
+
+
+                <label>
+                    Expected Resolution
+
+                    <input
+                        id="manageETA"
+                        type="date">
+                </label>
+
+
+                <label>
+                    Delay Reason
+
+                    <input
+                        id="manageDelay"
+                        placeholder="Optional">
+                </label>
+
+            </div>
+
+
+            <label>
+                Official Work Update
+
+                <textarea
+                    id="manageNote"
+                    rows="4"
+                    placeholder="Describe official work performed...">
+                </textarea>
+
+            </label>
+
+
+            <label>
+                Rejection Reason
+
+                <textarea
+                    id="rejectReason"
+                    rows="3"
+                    placeholder="Required when rejecting">
+                </textarea>
+
+            </label>
+
+
+            <div class="modal-actions">
+
+                <button type="button"
+                        class="secondary"
+                        onclick="closeManage()">
+                    Cancel
+                </button>
+
+                <button type="submit"
+                        class="primary">
+                    Save Official Update
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<div id="toast"
+     class="toast">
+</div>
+
+
+<script src="script2.js"></script>
+
+</body>
+</html>
