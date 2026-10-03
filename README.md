@@ -1,7 +1,7 @@
 #Hackathon Prototype
 ##Live Prototype
-[Open Base44 Prototype]
-(https://tiny-civic-fix-flow.base44.app)
+[Open Prototype]
+(civicconnection.netlify.com)
 
 ##Description
 This project is a prototype developed for the hackathon problem statement.
