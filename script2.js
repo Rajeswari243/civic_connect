@@ -162,9 +162,7 @@ const officers = [
         ward: "Ward 1",
         designation: "Municipal Officer"
     }
-   createUserWithEmailAndPassword(auth,email,password)
-signInWithEmailAndPassword(auth,email,password)
-
+   
 ];
 
 
